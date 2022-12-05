@@ -6,35 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Code Quiz</title>
+    <title>Code Quiz!</title>
   </head>
 
   <body>
+    <!-- Simple header that has link to highscores, website title and a counting down timer -->
     <header>
-        <nav>
-            <ul>
-                <li>View Highscores</li>
-                <li>Time: 100</li>
-            </ul>
-        </nav>
+      <ul>
+        <li class="navbar" id="highscores">View Highscores</li>
+        <li class="navbar">Coding Quiz!</li>
+        <li class="navbar" id="timer">Time: 100</li>
+      </ul>
     </header>
 
-    <main>
-        <section>
+    <main class="container">
+      <!-- The area questions are to be shown and interacted with -->
+        <section class="question-container hide">
             <h2>QUESTION!</h2>
-            <button> Answer 1</button>
-            <button> Answer 2</button>
-            <button> Answer 3</button>
-            <button> Answer 4</button>
+            <div class="answer-buttons">
+              <button> Answer 1</button>
+              <button> Answer 2</button>
+              <button> Answer 3</button>
+              <button> Answer 4</button>
+            </div>
+        </section>
+        <!-- What users will see in the main container before and after the quiz -->
+        <section class="other-buttons">
+          <p class="start-text">Test your code knowledge by answering the questions within the time limit! If you get an answer wrong you will lose 10 seconds! Try get the top score!</p>
+          <button id="start-button">Start!</button>
+          <label class="hide" for="initials">Enter your Initials:</label>
+          <input class="hide" type="text" id="initials" placeholder="MN">
+          <button class="hide" id="submit-score-button">Submit</button>
         </section>
     </main>
-
-
-
-
-
-
-
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

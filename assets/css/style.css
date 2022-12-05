@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #2a607c;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+header {
+    padding: 30px;
+    font-size: 32px;
+    background-color: rgba(128, 128, 128, 0.425);
+}
+
+ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 25%;
+    padding: 15px;
+    background-color: #0072bb;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 5px black;
+}
+
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+button {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 0 5px 5px rgb(208, 255, 0);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #2a607c;
+    color: white;
+    scale: 1.1;
+    transition: 0.2s;
+}
+
+.other-buttons {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#start-button {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.navbar {
+    box-shadow: 0 0 5px 5px #0072bb;
+    padding: 0 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/* Determines what is shown initally on the website */
+.hide {
+    display: none;
+}
