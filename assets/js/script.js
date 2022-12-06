@@ -1,13 +1,30 @@
 // ------What do I need to have happen?------
-var timerEl = document.getElementById("timer")
-var startButtonEl = document.getElementById("start-button")
+const timerEl = document.getElementById("timer")
+const startButtonEl = document.getElementById("start-button")
+const startTextEl = document.getElementById("start-text")
+const questionsContainerEl = document.getElementById("question-container")
+const questionEl = document.getElementById("question")
+const answerButtonsEl = document.getElementById("answer-buttons")
 
-// User needs to start the quiz
-startButtonEl.addEventListener("click", timerStart)
+// Put questions into here in an array? or have each question as a const to use...
+const questions = "Quiz(Temp)"
 
-// Quiz needs questions popualted
-// Timer needs to countdown (Starting at 100?)
+// -----User needs to start the quiz
+startButtonEl.addEventListener("click", startGame)
 
+function startGame() {
+    startButtonEl.classList.add("hide")
+    startTextEl.classList.add("hide")
+    questionsContainerEl.classList.remove("hide")
+    timerStart()
+    setQuestion()
+}
+
+// -----Quiz needs questions popualted
+function setQuestion() {
+
+}
+// -----Timer needs to countdown
 function timerStart() {
     var secondsLeft = 100;
     var timeInterval = setInterval(function () {
@@ -17,12 +34,15 @@ function timerStart() {
     }, 1000)
 }
 
-// User needs to select an answer
-// Determine if it is correct or not and subtract time (10 seconds) if incorrect
-// Display to user if right or wrong
-// When the quiz is finished or time runs out, end the quiz and display the time as the score
-// Let users input their initials to track on highscores
-// Display highscores with retry quiz and clear highscore options
+// -----User needs to select an answer
+function answerSelect() {
+    
+}
+// -----Determine if it is correct or not and subtract time (10 seconds) if incorrect
+// -----Display to user if right or wrong
+// -----When the quiz is finished or time runs out, end the quiz and display the time as the score
+// -----Let users input their initials to track on highscores
+// -----Display highscores with retry quiz and clear highscore options
 
 
 

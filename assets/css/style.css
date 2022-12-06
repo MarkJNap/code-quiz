@@ -38,7 +38,7 @@ main {
     box-shadow: 0 0 10px 5px black;
 }
 
-.answer-buttons {
+#answer-buttons {
     display: flex;
     flex-direction: column;
     padding: 20px 0;

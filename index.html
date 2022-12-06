@@ -21,9 +21,9 @@
 
     <main class="container">
       <!-- The area questions are to be shown and interacted with -->
-        <section class="question-container hide">
-            <h2>QUESTION!</h2>
-            <div class="answer-buttons">
+        <section class ="hide" id="question-container">
+            <h2 id="question">QUESTION!</h2>
+            <div id="answer-buttons">
               <button> Answer 1</button>
               <button> Answer 2</button>
               <button> Answer 3</button>
@@ -32,7 +32,7 @@
         </section>
         <!-- What users will see in the main container before and after the quiz -->
         <section class="other-buttons">
-          <p class="start-text">Test your code knowledge by answering the questions within the time limit! If you get an answer wrong you will lose 10 seconds! Try get the top score!</p>
+          <p id="start-text">Test your code knowledge by answering the questions within the time limit! If you get an answer wrong you will lose 10 seconds! Try get the top score!</p>
           <button id="start-button">Start!</button>
           <label class="hide" for="initials">Enter your Initials:</label>
           <input class="hide" type="text" id="initials" placeholder="MN">
