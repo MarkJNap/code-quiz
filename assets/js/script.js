@@ -1,10 +1,12 @@
 const timerEl = document.getElementById("timer")
 const startButtonEl = document.getElementById("start-button")
-const startTextEl = document.getElementById("start-text")
+const startContainerEl = document.getElementById("start-info")
 const questionsContainerEl = document.getElementById("question-container")
 const questionEl = document.getElementById("question")
 const answerButtonsEl = document.getElementById("answer-buttons")
 const selectedAnswerEl = document.getElementById("answer-display")
+const endingContainerEl = document.getElementById("endgame-info")
+
 const questionsAll = [
     {
         question: "In JavaScript, What is the type of loop that continues through a block of code as long as the specified condition remains TRUE?",
@@ -52,7 +54,7 @@ const questionsAll = [
         ]
     },    
     {
-        question: "How do you display a border like this: The top border = 10 pixels, The bottom border = 5 pixels, The left border = 20 pixels, The right border = 2 pixels?",
+        question: "How do you display a border like this: <br> The top border = 10 pixels, <br>The bottom border = 5 pixels, <br>The left border = 20 pixels, <br>The right border = 2 pixels?",
         answers: [
             { text: "border-width:10px 2px 5px 20px;", correct: true},
             { text: "border-width:5px 20px 10px 2px;", correct: false},
@@ -61,8 +63,10 @@ const questionsAll = [
         ]
     }
 ]
-var currentQuestion = 0
-var secondsLeft = 100;
+let currentQuestion = 0;
+let secondsLeft = 100;
+let scoreTimer = 0;
+let timerId = null;
 
 // ------What do I need to have happen?------
 // -----User clicks start the quiz
@@ -70,8 +74,7 @@ startButtonEl.addEventListener("click", startGame)
 
 // -----What happens when the game starts
 function startGame() {
-    startButtonEl.classList.add("hide")
-    startTextEl.classList.add("hide")
+    startContainerEl.classList.add("hide")
     selectedAnswerEl.classList.add("hide")
     questionsContainerEl.classList.remove("hide")
     timerStart()
@@ -80,9 +83,13 @@ function startGame() {
 
 // -----Timer begins countdown
 function timerStart() {
-    var timeInterval = setInterval(function () {
+    timerId = setInterval(function () {
         secondsLeft--;
-        if (Number(secondsLeft) < 0) {
+        if (secondsLeft <= 0) {
+            score()
+            endGame()
+        }
+        if ((secondsLeft <= 0) || (currentQuestion === questionsAll.length)) {
             timerEl.textContent = "Time is Up!"
             return
         }
@@ -92,6 +99,18 @@ function timerStart() {
 
 function setTimerText() {
     timerEl.textContent = "Time: " + secondsLeft;
+}
+
+function stopTimer() {
+    clearInterval(timerId)
+}
+
+function score() {
+    scoreTimer = secondsLeft
+    if (scoreTimer < 0) {
+        scoreTimer = 0
+    }
+    console.log(scoreTimer);
 }
 
 
@@ -105,8 +124,14 @@ function setQuestion() {
 function blankSlate() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
-
     }
+}
+function clearAll() {
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild)
+    }
+    questionEl.classList.add("hide")
+    selectedAnswerEl.classList.add("hide")
 }
 
 function showQuestion(questionsAll) {
@@ -124,36 +149,24 @@ function showQuestion(questionsAll) {
 
 // -----User needs to select an answer
 function answerSelect(e) {
-    var selectedAnswer = e.target
+    let selectedAnswer = e.target
     Array.from(answerButtonsEl.children).forEach(button => {
         setClass(button, button.dataset.correct)
     })
 
-// -----Determine if it is correct or not and subtract time (10 seconds) if incorrect
+// -----Determine if it is correct or not and subtract time (20 seconds) if incorrect
 // -----Display to user if right or wrong
     if (selectedAnswer.dataset.correct) {
         selectedAnswerEl.textContent = "Correct!"
         selectedAnswerEl.classList.remove("hide")
-        score++
     } else {
         selectedAnswerEl.textContent = "Wrong!"
         selectedAnswerEl.classList.remove("hide")
-        secondsLeft = secondsLeft - 10
+        secondsLeft = secondsLeft - 20
     }
     nextQuestion()
 
 }
-// Moves on to the next question or heads to ending game
-function nextQuestion () {
-    currentQuestion++
-    if (currentQuestion === questionsAll.length) {
-        questionEl.classList.add("hide")
-        blankSlate()
-    } else {
-    setQuestion()
-    }
-}
-
 function setClass(element, correct) {
     if (correct) {
         element.classList.add("correct")
@@ -162,9 +175,27 @@ function setClass(element, correct) {
     }
 }
 
+// Moves on to the next question or heads to ending game
+function nextQuestion () {
+    currentQuestion++
+    if (currentQuestion === questionsAll.length) {
+        score()
+        endGame()
+    } else {
+    setQuestion()
+    }
+}
 // -----When the quiz is finished or time runs out, end the quiz and display the time as the score
 // -----Let users input their initials to track on highscores
 // -----Display highscores with retry quiz and clear highscore options
+function endGame() {
+    stopTimer()
+    clearAll()
+    endingContainerEl.classList.remove("hide")
+}
+
+
+
 
 
 
