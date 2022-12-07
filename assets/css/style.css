@@ -44,6 +44,26 @@ main {
     padding: 20px 0;
 }
 
+.correct {
+    background-color: green;
+}
+.correct:hover {
+    background-color: rgb(7, 255, 7);
+}
+.wrong {
+    background-color: darkred;
+
+}
+.wrong:hover {
+    background-color: red;
+
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+}
+
 button {
     font-size: 22px;
     font-weight: bold;
