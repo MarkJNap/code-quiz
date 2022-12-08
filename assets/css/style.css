@@ -5,6 +5,8 @@
     margin: 0;
 }
 
+
+
 body {
     background-color: #2a607c;
     display: flex;
@@ -12,6 +14,7 @@ body {
     width: 100vw;
     height: 100vh;
     text-shadow: black 0.1em 0.1em 0.2em;
+    cursor:default;
 }
 
 header {
@@ -26,14 +29,22 @@ ul {
     list-style-type: none;
 }
 
-.highscore-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 22px;
-    margin-top: 10px;
-    padding: 10px 0px;
-    background-color: rgba(0, 0, 0, 0.288);
+.navbar {
+    box-shadow: 0 0 5px 5px #0072bb;
+    padding: 0 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#highscores-link {
+    color: #eb1111;
+    cursor: pointer;
+}
+
+#highscores-link:hover {
+    scale: 1.1;
+    box-shadow: 0 0 5px 5px rgb(208, 255, 0);
+    transition: 0.3s;
 }
 
 main {
@@ -47,6 +58,26 @@ main {
     color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px 5px black;
+}
+
+button {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    box-shadow: 0 0 5px 5px rgb(208, 255, 0);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #2a607c;
+    color: white;
+    scale: 1.1;
+    transition: 0.2s;
 }
 
 #answer-buttons {
@@ -65,25 +96,6 @@ h3 {
     font-size: 32px;
 }
 
-button {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 15px;
-    padding: 10px;
-    background-color: white;
-    border: 1px solid black;
-    box-shadow: 0 0 5px 5px rgb(208, 255, 0);
-    border-radius: 10px;
-    transition: 0.2s;
-}
-
-button:hover {
-    background-color: #2a607c;
-    color: white;
-    scale: 1.1;
-    transition: 0.2s;
-}
-
 .start {
     font-size: 20px;
     display: flex;
@@ -99,13 +111,16 @@ button:hover {
 .question-title {
     display: flex;
     text-align: center;
-}
 
-.navbar {
-    box-shadow: 0 0 5px 5px #0072bb;
-    padding: 0 10px;
-    border-radius: 10px;
-    background-color: white;
+}
+.highscore-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    margin-top: 10px;
+    padding: 10px 0px;
+    background-color: rgba(0, 0, 0, 0.288);
 }
 
 /* Determines what is shown or not */

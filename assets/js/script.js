@@ -77,12 +77,12 @@ let timerId = null;
 let stored = []
 
 
-// -----User clicks start the quiz
+// Starts the quiz when clicked
 startButtonEl.addEventListener("click", startGame)
-// User clicks the highscore link
+// User clicks the highscore link and takes them to highscore page
 highscoreLinkEL.addEventListener("click", highscoreScreen)
 
-// -----What happens when the game starts
+// Beginning function of the game
 function startGame() {
     startContainerEl.classList.add("hide")
     selectedAnswerEl.classList.add("hide")
@@ -92,7 +92,7 @@ function startGame() {
     setQuestion()
 }
 
-// -----Timer begins countdown
+// Timer begins countdown
 function timerStart() {
     timerId = setInterval(function () {
         secondsLeft--;
@@ -104,15 +104,15 @@ function timerStart() {
         setTimerText();
     }, 1000)
 }
-
+// Displays the current timer time
 function setTimerText() {
     timerEl.textContent = "Time: " + secondsLeft;
 }
-
+// Stops the timer and stops the functions
 function stopTimer() {
     clearInterval(timerId)
 }
-
+// Keeps track of the players score
 function score() {
     scoreTimer = secondsLeft
     if (scoreTimer < 0) {
@@ -120,24 +120,25 @@ function score() {
     }
 }
 
-// -----Quiz needs questions popualted
+// Populates the Quiz with a question
 function setQuestion() {
-    // Removes existing answers to not clash with new answers buttons
     blankSlate()
     showQuestion(questionsAll[currentQuestion])
 }
 
+// Removes existing answers to not clash with new answers buttons
 function blankSlate() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
     }
 }
-
+// Displays the question and creates the answer buttons
 function showQuestion(questionsAll) {
     questionEl.innerHTML = questionsAll.question
     questionsAll.answers.forEach(answer => {
         const button = document.createElement("button")
         button.innerText = answer.text
+        // Sets the correct answer
         if (answer.correct) {
             button.dataset.correct = answer.correct
         }
@@ -146,11 +147,11 @@ function showQuestion(questionsAll) {
     })
 }
 
-// -----User needs to select an answer
+// When user selects an answer
 function answerSelect(e) {
     let selectedAnswer = e.target
-// -----Determine if it is correct or not and subtract time (20 seconds) if incorrect
-// -----Display to user if right or wrong
+// Determine if it is correct or not and subtract time (20 seconds) if incorrect
+// Display to user if right or wrong
     if (selectedAnswer.dataset.correct) {
         selectedAnswerEl.textContent = "Correct!"
         selectedAnswerEl.classList.remove("hide")
@@ -163,7 +164,7 @@ function answerSelect(e) {
 }
 
 
-// Moves on to the next question or heads to ending game
+// Moves on to the next question or heads to ending gamescreen
 function nextQuestion () {
     currentQuestion++
     if (currentQuestion === questionsAll.length) {
@@ -174,15 +175,15 @@ function nextQuestion () {
     }
 }
 // -----When the quiz is finished or time runs out, end the quiz and display the time as the score
-// -----Let users input their initials to track on highscores
 function endGame() {
     stopTimer()
     clearAll()
     endingContainerEl.classList.remove("hide")
     highscoretextEl.textContent = "Your Score was: " + scoreTimer + "!"
+// -----Let users input their initials to track on highscores
     submitButtonEl.addEventListener("click", highscoreScreen)
 }
-
+// Clears away question and start containers
 function clearAll() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
@@ -216,7 +217,8 @@ function saveHighscore() {
     localStorage.setItem("userscore", JSON.stringify(userScore))
     // console.log(localStorage);
 }
-// TODO Finish sorting
+
+// TODO Finish sorting (Didn't finish in time)
 // function storedHighscore() {
 //     let userHighscore = JSON.parse(localStorage.getItem("userscore"))
 //     stored.push(userHighscore)
@@ -224,6 +226,8 @@ function saveHighscore() {
 //     console.log(sortedHighscores);
 // }
 
+
+// From the array creates a list item to display inital and score
 function displayUserScore() {
     let userHighscore = JSON.parse(localStorage.getItem("userscore"))
     let liScore = document.createElement("li")
@@ -232,21 +236,22 @@ function displayUserScore() {
         highscoreListEl.appendChild(liScore)
     }
 }
-
+// Clears all highscores
 function clearHighscore() {
     while (highscoreListEl.firstChild) {
         highscoreListEl.removeChild(highscoreListEl.firstChild)
     }
-    stored = []
+    // stored = []
 }
 
+// From highscore display can retry the quiz
 function restartGame() {
     currentQuestion = 0;
     secondsLeft = 100;
     scoreTimer = 0;
     timerId = null;
     localStorage.clear()
-    console.log(localStorage);
+    // console.log(localStorage);
     questionEl.classList.remove("hide")
     startGame()
 }
