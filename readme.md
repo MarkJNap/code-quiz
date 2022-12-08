@@ -14,9 +14,9 @@ To correctly use this app the user only has to read the start text to understand
 
 The github pages link is: https://markjnap.github.io/code-quiz/
 
-Screenshot of complete webpage
+Gif of complete webpage
 
-[<img src="/assets/password-generator-demo.gif" alt="Code Quiz Demo"/>](/assets/password-generator-demo.gif)
+[<img src="/assets/images/code-quiz-demo.gif" alt="Code Quiz Demo"/>](/assets//images/code-quiz-demo.gif)
 
 ## Credits
 Mark Napolitano
