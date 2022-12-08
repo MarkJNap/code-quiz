@@ -74,6 +74,8 @@ let currentQuestion = 0;
 let secondsLeft = 100;
 let scoreTimer = 0;
 let timerId = null;
+let stored = []
+
 
 // -----User clicks start the quiz
 startButtonEl.addEventListener("click", startGame)
@@ -94,13 +96,10 @@ function startGame() {
 function timerStart() {
     timerId = setInterval(function () {
         secondsLeft--;
-        if (secondsLeft <= 0) {
-            score()
-            endGame()
-        }
         if ((secondsLeft <= 0) || (currentQuestion === questionsAll.length)) {
             timerEl.textContent = "Time is Up!"
-            return
+            score()
+            endGame() 
         }
         setTimerText();
     }, 1000)
@@ -119,9 +118,7 @@ function score() {
     if (scoreTimer < 0) {
         scoreTimer = 0
     }
-    console.log(scoreTimer);
 }
-
 
 // -----Quiz needs questions popualted
 function setQuestion() {
@@ -134,14 +131,6 @@ function blankSlate() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
     }
-}
-function clearAll() {
-    while (answerButtonsEl.firstChild) {
-        answerButtonsEl.removeChild(answerButtonsEl.firstChild)
-    }
-    questionEl.classList.add("hide")
-    selectedAnswerEl.classList.add("hide")
-    startContainerEl.classList.add("hide")
 }
 
 function showQuestion(questionsAll) {
@@ -160,10 +149,6 @@ function showQuestion(questionsAll) {
 // -----User needs to select an answer
 function answerSelect(e) {
     let selectedAnswer = e.target
-    Array.from(answerButtonsEl.children).forEach(button => {
-        setClass(button, button.dataset.correct)
-    })
-
 // -----Determine if it is correct or not and subtract time (20 seconds) if incorrect
 // -----Display to user if right or wrong
     if (selectedAnswer.dataset.correct) {
@@ -175,15 +160,8 @@ function answerSelect(e) {
         secondsLeft = secondsLeft - 20
     }
     nextQuestion()
+}
 
-}
-function setClass(element, correct) {
-    if (correct) {
-        element.classList.add("correct")
-    } else {
-        element.classList.add("wrong")
-    }
-}
 
 // Moves on to the next question or heads to ending game
 function nextQuestion () {
@@ -205,22 +183,22 @@ function endGame() {
     submitButtonEl.addEventListener("click", highscoreScreen)
 }
 
-function saveHighscore() {
-    let userInitial = document.getElementById("initials").value;
-    let userScore = {
-        initial: userInitial,
-        highscore: scoreTimer
-    };
-    localStorage.setItem("userscore", JSON.stringify(userScore))
-    console.log(localStorage);
+function clearAll() {
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild)
+    }
+    questionEl.classList.add("hide")
+    selectedAnswerEl.classList.add("hide")
+    startContainerEl.classList.add("hide")
 }
 
 // -----Display highscores with retry quiz and clear highscore options
 function highscoreScreen() {
     saveHighscore();
+    // storedHighscore()
     clearAll();
+    stopTimer()
     displayUserScore();
-    localStorage.clear();
     startContainerEl.classList.add("hide")
     selectedAnswerEl.classList.add("hide")
     endingContainerEl.classList.add("hide")
@@ -228,6 +206,23 @@ function highscoreScreen() {
     retryButtonEl.addEventListener("click", restartGame)
     clearButtonEl.addEventListener("click", clearHighscore)
 }
+
+function saveHighscore() {
+    let userInitial = document.getElementById("initials").value;
+    let userScore = {
+        initial: userInitial,
+        highscore: scoreTimer
+    };
+    localStorage.setItem("userscore", JSON.stringify(userScore))
+    // console.log(localStorage);
+}
+// TODO Finish sorting
+// function storedHighscore() {
+//     let userHighscore = JSON.parse(localStorage.getItem("userscore"))
+//     stored.push(userHighscore)
+//     let sortedHighscores = stored.sort((h1, h2) => (h1.highscore < h2.highscore) ? 1 : (h1.highscore > h2.highscore) ? -1 : 0);
+//     console.log(sortedHighscores);
+// }
 
 function displayUserScore() {
     let userHighscore = JSON.parse(localStorage.getItem("userscore"))
@@ -242,6 +237,7 @@ function clearHighscore() {
     while (highscoreListEl.firstChild) {
         highscoreListEl.removeChild(highscoreListEl.firstChild)
     }
+    stored = []
 }
 
 function restartGame() {
@@ -249,6 +245,8 @@ function restartGame() {
     secondsLeft = 100;
     scoreTimer = 0;
     timerId = null;
+    localStorage.clear()
+    console.log(localStorage);
     questionEl.classList.remove("hide")
     startGame()
 }
