@@ -13,7 +13,7 @@
     <!-- Simple header that has link to highscores, website title and a counting down timer -->
     <header>
       <ul>
-        <li class="navbar" id="highscores">View Highscores</li>
+        <li class="navbar" id="highscores-link">View Highscores</li>
         <li class="navbar">Coding Quiz!</li>
         <li class="navbar" id="timer">Time: 100</li>
       </ul>
@@ -39,13 +39,18 @@
         </section>
 
         <section class="endgame hide" id="endgame-info">
-          <h2 id="highscore"> Your Score was: 0</h2>
+          <h2 id="highscore"> Your Score was: 0!</h2>
           <label for="initials">Enter your Initials:</label>
-          <input type="text" id="initials" placeholder="MN">
+          <input type="text" id="initials" maxlength="2" placeholder="MN">
           <button id="submit-score-button">Submit</button>
         </section>
         
-        <section class="highscore-page">
+        <section class="highscore-page hide" id="highscore-info">
+          <h2>Highscores!</h2>
+          <ul class="highscore-list" id="listed-highscores">
+          </ul>
+          <button id="retry-button"> Restart Quiz?</button>
+          <button id="clear-button"> Clear Highscores</button>
         </section>
     </main>
     <script src="./assets/js/script.js"></script>

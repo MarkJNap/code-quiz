@@ -6,6 +6,13 @@ const questionEl = document.getElementById("question")
 const answerButtonsEl = document.getElementById("answer-buttons")
 const selectedAnswerEl = document.getElementById("answer-display")
 const endingContainerEl = document.getElementById("endgame-info")
+const highscoreContainerEl = document.getElementById("highscore-info")
+const highscoretextEl = document.getElementById("highscore")
+const submitButtonEl = document.getElementById("submit-score-button")
+const highscoreListEl = document.getElementById("listed-highscores")
+const retryButtonEl = document.getElementById("retry-button")
+const clearButtonEl = document.getElementById("clear-button")
+const highscoreLinkEL = document.getElementById("highscores-link")
 
 const questionsAll = [
     {
@@ -68,14 +75,16 @@ let secondsLeft = 100;
 let scoreTimer = 0;
 let timerId = null;
 
-// ------What do I need to have happen?------
 // -----User clicks start the quiz
 startButtonEl.addEventListener("click", startGame)
+// User clicks the highscore link
+highscoreLinkEL.addEventListener("click", highscoreScreen)
 
 // -----What happens when the game starts
 function startGame() {
     startContainerEl.classList.add("hide")
     selectedAnswerEl.classList.add("hide")
+    highscoreContainerEl.classList.add("hide")
     questionsContainerEl.classList.remove("hide")
     timerStart()
     setQuestion()
@@ -132,6 +141,7 @@ function clearAll() {
     }
     questionEl.classList.add("hide")
     selectedAnswerEl.classList.add("hide")
+    startContainerEl.classList.add("hide")
 }
 
 function showQuestion(questionsAll) {
@@ -187,12 +197,62 @@ function nextQuestion () {
 }
 // -----When the quiz is finished or time runs out, end the quiz and display the time as the score
 // -----Let users input their initials to track on highscores
-// -----Display highscores with retry quiz and clear highscore options
 function endGame() {
     stopTimer()
     clearAll()
     endingContainerEl.classList.remove("hide")
+    highscoretextEl.textContent = "Your Score was: " + scoreTimer + "!"
+    submitButtonEl.addEventListener("click", highscoreScreen)
 }
+
+function saveHighscore() {
+    let userInitial = document.getElementById("initials").value;
+    let userScore = {
+        initial: userInitial,
+        highscore: scoreTimer
+    };
+    localStorage.setItem("userscore", JSON.stringify(userScore))
+    console.log(localStorage);
+}
+
+// -----Display highscores with retry quiz and clear highscore options
+function highscoreScreen() {
+    saveHighscore();
+    clearAll();
+    displayUserScore();
+    localStorage.clear();
+    startContainerEl.classList.add("hide")
+    selectedAnswerEl.classList.add("hide")
+    endingContainerEl.classList.add("hide")
+    highscoreContainerEl.classList.remove("hide")
+    retryButtonEl.addEventListener("click", restartGame)
+    clearButtonEl.addEventListener("click", clearHighscore)
+}
+
+function displayUserScore() {
+    let userHighscore = JSON.parse(localStorage.getItem("userscore"))
+    let liScore = document.createElement("li")
+    if (userHighscore.initial !== "") {
+        liScore.textContent = userHighscore.initial + " - " + userHighscore.highscore
+        highscoreListEl.appendChild(liScore)
+    }
+}
+
+function clearHighscore() {
+    while (highscoreListEl.firstChild) {
+        highscoreListEl.removeChild(highscoreListEl.firstChild)
+    }
+}
+
+function restartGame() {
+    currentQuestion = 0;
+    secondsLeft = 100;
+    scoreTimer = 0;
+    timerId = null;
+    questionEl.classList.remove("hide")
+    startGame()
+}
+
 
 
 
